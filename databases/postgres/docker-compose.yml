@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: postgres_curso_agno
+    image: postgres:17.10
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: agno
+      POSTGRES_DB: curso_agno
+    ports:
+      - '5432:5432'
+    volumes:
+      - curso_agno_data:/var/lib/postgresql/data
+    networks:
+      - curso_agno_network
+
+volumes:
+  curso_agno_data:
+  
+networks:
+  curso_agno_network:
+    driver: bridge
+  
