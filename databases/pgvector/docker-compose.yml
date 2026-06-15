@@ -1,0 +1,23 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17 # PostgreSQL with pgvector support
+    container_name: pgvector-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: megaonline
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgvectordata:/var/lib/postgresql/data
+      - ./schema/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+     - pgvector_network     
+
+volumes:
+  pgvectordata: # Stores data outside the container to ensure persistence
+
+networks:
+  pgvector_network:
+    driver: bridge
